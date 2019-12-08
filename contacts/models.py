@@ -33,9 +33,12 @@ class MobileInfo(models.Model):
         ('H', 'Home')
     )
 
-    phone = models.CharField(max_length=10, choices=phone_choices)
-    email = models.CharField(max_length=10, choices=common_choices)
-    address = models.CharField(max_length=10, choices=common_choices)
+    contact = models.IntegerField(null=False, default=1234567890)
+    phone_type = models.CharField(max_length=10, choices=phone_choices, default='M')
+    email = models.CharField(max_length=50, null=True)
+    email_type = models.CharField(max_length=10, choices=common_choices, default='W')
+    address = models.TextField(max_length=150, null=True)
+    address_type = models.CharField(max_length=10, choices=common_choices, default='W')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class DateInfo(models.Model):

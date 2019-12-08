@@ -1,11 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contacts</title>
-</head>
-<body>
-    <h1>Contacts Here</h1>
-    <a href="logout">Logout</a>
-</body>
-</html>
+{% extends './header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-light">
+            <div class="row">
+                <div class="col-3 pt-2">
+                    <h5>Contacts</h5>
+                </div>
+                <div class="col-9">
+                    <div class="d-flex flex-row-reverse">
+                        <a href="add">
+                            <button class="btn btn-dark">
+                                <i class="fas fa-plus"></i>
+                                Add User
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% for contact in contacts %}
+                {{contact}}
+            {% empty %}
+                <h5 class="text-center">No contacts added</h5>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

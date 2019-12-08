@@ -1,0 +1,74 @@
+{% extends './header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-light">
+            <h6 class="mb-0">Add Contact</h6>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'add_contact' %}" method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>FIRST NAME</label>
+                        <input type="text" class="form-control" placeholder="Firstname" name="firstname">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>LAST NAME</label>
+                        <input type="text" class="form-control" placeholder="Lastname" name="lastname">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>SUR NAME</label>
+                        <input type="text" class="form-control" placeholder="Surname" name="surname">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>PREFIX</label>
+                        <input type="text" class="form-control" placeholder="Prefix" name="prefix">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>SUFFIX</label>
+                        <input type="text" class="form-control" placeholder="Suffix" name="suffix">
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 pt-2">
+                            <h6>Contact Details</h6>
+                        </div>
+                        <div class="col-md-6 d-flex flex-row-reverse">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                Add New</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <input type="phone" class="form-control" placeholder="Phone number" name="phonenumber">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="text" class="form-control" placeholder="Surname" name="surname">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12 mb-0 d-flex flex-row-reverse">
+                        <button type="submit" class="btn btn-success">Finish</button>
+                        <button type="submit" class="btn btn-dark mr-2">Save & Next</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var phone_choices = {{phone_choices}}
+    var common_choices = {{common_choices}}
+
+</script>
+{% endblock %}
