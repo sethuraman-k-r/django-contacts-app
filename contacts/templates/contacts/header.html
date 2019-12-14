@@ -6,11 +6,12 @@
     <link href="{% static 'contacts/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'contacts/fonts/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
     <title>Contact - Login</title>
+    <script src="{% static 'contacts/jquery/jquery-3.4.1.min.js' %}"></script>
 </head>
 <body>
 {% if session %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Contact - Dj</a>
+        <a class="navbar-brand" href="{% url 'index' %}">Contact - Dj</a>
         <div class="collapse navbar-collapse flex-row-reverse">
             <ul class="navbar-nav">
                 <li class="nav-item active">
@@ -19,7 +20,7 @@
                         {{username | capfirst}}</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="logout">
+                    <a class="nav-link" href="{% url 'logout' %}">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout</a>
                 </li>

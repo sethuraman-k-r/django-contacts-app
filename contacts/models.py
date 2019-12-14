@@ -33,7 +33,7 @@ class MobileInfo(models.Model):
         ('H', 'Home')
     )
 
-    contact = models.IntegerField(null=False, default=1234567890)
+    contact = models.CharField(max_length=10, null=False)
     phone_type = models.CharField(max_length=10, choices=phone_choices, default='M')
     email = models.CharField(max_length=50, null=True)
     email_type = models.CharField(max_length=10, choices=common_choices, default='W')

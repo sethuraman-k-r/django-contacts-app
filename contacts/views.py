@@ -2,16 +2,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_http_methods
-from django.utils.safestring import mark_safe
+# from django.utils.safestring import mark_safe
 from django.template import loader
 
 from urllib import parse
-import json
 
 from .session import isValidSession, delete_session
-from .service import get_user_contacts
-from .models import MobileInfo
-
+from .service import get_user_contacts, save_details
+from .models import MobileInfo, DateInfo, Relationship
+from .forms.Contact import Details
 
 # Create your views here.
 def index(request):
@@ -41,7 +40,7 @@ def index(request):
                 user = authenticate(username=username, password=password)
                 if user is not None:
                     request.session['username'] = username
-                    request.sesion.set_expiry(1800)
+                    request.session.set_expiry(1800)
                     return HttpResponseRedirect("/contacts")
                 else:
                     context['message'] = 'Please check username and password'
@@ -60,13 +59,21 @@ def add_new_contact(request):
     if session_valid:
         context['session'] = True
         context['username'] = request.session['username']
-        context['phone_choices'] = mark_safe(
-            json.dumps([{choice[0]: choice[1]} for choice in MobileInfo.phone_choices]))
-        context['common_choices'] = mark_safe(
-            json.dumps([{choice[0]: choice[1]} for choice in MobileInfo.common_choices]))
-    template = loader.get_template('contacts/add_contact.html')
-    return HttpResponse(template.render(context, request))
-
+        context['phone'] = MobileInfo.phone_choices
+        context['anniversary'] = DateInfo.date_choices
+        context['relationship'] = Relationship.relations
+        user = User.objects.get(username=context['username'])
+        # context['phone_choices'] = mark_safe(
+        #     json.dumps([{choice[0]: choice[1]} for choice in MobileInfo.phone_choices]))
+        if request.method == 'POST':
+            form = Details(request.POST)
+            if form.is_valid() and save_details(form, user):
+                return HttpResponseRedirect("/contacts")
+            return HttpResponseRedirect("/contacts/add")
+        template = loader.get_template('contacts/add_contact.html')
+        return HttpResponse(template.render(context, request))
+    else:
+        return HttpResponseRedirect("/contacts")
 
 def logout(request):
     delete_session(request)

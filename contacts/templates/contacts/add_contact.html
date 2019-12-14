@@ -10,8 +10,8 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label>FIRST NAME</label>
-                        <input type="text" class="form-control" placeholder="Firstname" name="firstname">
+                        <label for="firstname">FIRST NAME</label>
+                        <input type="text" class="form-control" placeholder="Firstname" name="firstname" id="firstname">
                     </div>
                     <div class="form-group col-md-4">
                         <label>LAST NAME</label>
@@ -33,42 +33,109 @@
                     </div>
                 </div>
                 <hr>
-                <div>
-                    <div class="row mb-3">
-                        <div class="col-md-6 pt-2">
-                            <h6>Contact Details</h6>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 pt-2">
+                                <h6>Contact Details</h6>
+                            </div>
                         </div>
-                        <div class="col-md-6 d-flex flex-row-reverse">
-                            <button class="btn btn-secondary">
-                                <i class="fas fa-plus"></i>
-                                Add New</button>
+                        <div class="contact-details">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="phone" class="form-control" placeholder="Phone number"
+                                           name="phonenumber">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select name="phonechoice" class="form-control">
+                                        {% for key, value in phone %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <input type="phone" class="form-control" placeholder="Phone number" name="phonenumber">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 pt-2">
+                                <h6>Company Details</h6>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input type="email" class="form-control" placeholder="Email" name="email">
+                        <div class="company-details">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" placeholder="Company name"
+                                           name="companyname">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" placeholder="Designation"
+                                           name="designation">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control" placeholder="Surname" name="surname">
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 pt-2">
+                                <h6>Anniversary</h6>
+                            </div>
                         </div>
+                        <div class="anniversary-details">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="date" class="form-control"
+                                           name="anniversarydate">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select name="anniversarychoice" class="form-control">
+                                        {% for key, value in anniversary %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 pt-2">
+                                <h6>Relationship</h6>
+                            </div>
+                        </div>
+                        <div class="company-details">
+                            <div class="form-row">
+                                <div class="form-group col-md-6 pt-2">
+                                    <h6>Select your relationship : </h6>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select name="relationships" class="form-control">
+                                        {% for key, value in relationship %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <h6>Description</h6>
+                        <textarea name="description" rows="5" class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12 mb-0 d-flex flex-row-reverse">
                         <button type="submit" class="btn btn-success">Finish</button>
-                        <button type="submit" class="btn btn-dark mr-2">Save & Next</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script>
-    var phone_choices = {{phone_choices}}
-    var common_choices = {{common_choices}}
-
-</script>
 {% endblock %}
