@@ -6,8 +6,18 @@ def get_user_contacts(user):
     if user is not None:
         try:
             all_users = ContactUser.objects.filter(user=user)
-            print(all_users)
-            return all_users
+            mobile_choice = {key: value for key, value in MobileInfo.phone_choices}
+            all_contacts = []
+            for contact in all_users:
+                mobile = MobileInfo.objects.get(user=contact)
+                contact = {}
+                contact['firstname'] = user.first_name
+                contact['lastname'] = user.last_name
+                contact['id'] = user.id
+                contact['contact'] = mobile.contact
+                contact['contacttype'] = mobile_choice[mobile.phone_type]
+                all_contacts.append(contact)
+            return all_contacts
         except ObjectDoesNotExist:
             return []
     return []
