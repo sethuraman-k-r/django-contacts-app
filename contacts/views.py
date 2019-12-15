@@ -8,8 +8,8 @@ from django.template import loader
 from urllib import parse
 
 from .session import isValidSession, delete_session
-from .service import get_user_contacts, save_details
-from .models import MobileInfo, DateInfo, Relationship
+from .service import get_user_contacts, save_details, delete_user_contact
+from .models import MobileInfo, DateInfo, Relationship, User as ContactUser
 from .forms.Contact import Details
 
 # Create your views here.
@@ -74,6 +74,20 @@ def add_new_contact(request):
         return HttpResponse(template.render(context, request))
     else:
         return HttpResponseRedirect("/contacts")
+
+def delete_contact(request, user_id):
+    context = {
+        'error': None,
+        'session': False
+    }
+    session_valid = isValidSession(request)
+    if session_valid and user_id:
+        context['session'] = True
+        context['username'] = request.session['username']
+        user = User.objects.get(username=context['username'])
+        contact = ContactUser.objects.get(user_id=user_id, user=user)
+        delete_user_contact(user, contact)
+    return HttpResponseRedirect('/contacts')
 
 def logout(request):
     delete_session(request)

@@ -64,3 +64,10 @@ def save_details(form, owner):
         return True
     except Exception:
         return False
+
+def delete_user_contact(user, contact):
+    try:
+        contact.delete()
+        return True
+    except Exception:
+        return False

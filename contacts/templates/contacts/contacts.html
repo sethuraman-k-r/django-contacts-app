@@ -38,13 +38,15 @@
                     <td>{{contact.contact}}</td>
                     <td>{{contact.contacttype}}</td>
                     <td>
-                        <a class="btn btn-danger text-white">
+                        <a class="btn btn-danger text-white" href="{% url 'delete_contact' contact.id %}">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
                 {% empty %}
-                <h5 class="text-center">No contacts added</h5>
+                <tr>
+                    <td colspan="5" class="text-center">No contacts added</td>
+                </tr>
                 {% endfor %}
                 </tbody>
             </table>
